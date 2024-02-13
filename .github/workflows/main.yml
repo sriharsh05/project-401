@@ -1,4 +1,4 @@
-name: Auto test L10 solution
+name: Auto test todo app solution
 on: push
 env:
   PG_DATABASE: wd-todo-test
@@ -45,7 +45,6 @@ jobs:
       - name: Run the app
         id: run-app
         run: |
-          cd l10
           npm install
           npx sequelize-cli db:drop
           npx sequelize-cli db:create
