@@ -1,0 +1,6 @@
+node_modules
+results.json
+report.json
+.DS_Store
+coverage
+**/**.mp4
