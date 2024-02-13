@@ -31,7 +31,7 @@ function formatDateWithOffset(daysOffset = 0) {
   return `${year}-${month}-${day}`;
 }
 
-const firstName = "L10 VTA";
+const firstName = "VTA";
 const lastName = "User";
 const email = "sriharsh@sriharsh.com";
 const password = "123456789";
