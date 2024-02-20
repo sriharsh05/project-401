@@ -1,0 +1,71 @@
+;FFMETADATA1
+[CHAPTER]
+TIMEBASE=1/1000
+START=-6187
+END=6646
+title=Starting the tests for todo app Prevent account creation with blank email, password, or first name.
+[CHAPTER]
+TIMEBASE=1/1000
+START=11700
+END=19527
+title=Starting the tests for todo app Navigate to the signup page and initiate the account creation process.
+[CHAPTER]
+TIMEBASE=1/1000
+START=24546
+END=27364
+title=Starting the tests for todo app should not login with incorrect credentials
+[CHAPTER]
+TIMEBASE=1/1000
+START=24189
+END=30195
+title=Verifying the functionalities of todo list, Prevent the creation of a todo item with an empty title.
+[CHAPTER]
+TIMEBASE=1/1000
+START=30154
+END=36212
+title=Verifying the functionalities of todo list, Prevent the creation of a todo item with empty dueDate
+[CHAPTER]
+TIMEBASE=1/1000
+START=34641
+END=42282
+title=Verifying the functionalities of todo list, Generate a sample todo item with a due date set for today.
+[CHAPTER]
+TIMEBASE=1/1000
+START=42699
+END=49940
+title=Verifying the functionalities of todo list, Generate a sample todo item with a due date set for a later.
+[CHAPTER]
+TIMEBASE=1/1000
+START=49960
+END=57187
+title=Verifying the functionalities of todo list, Generate a sample todo item with a past due date.
+[CHAPTER]
+TIMEBASE=1/1000
+START=59406
+END=64433
+title=Verifying the functionalities of todo list, Mark the sample overdue item as completed.
+[CHAPTER]
+TIMEBASE=1/1000
+START=64019
+END=69469
+title=Verifying the functionalities of todo list, Toggle a completed item to incomplete upon clicking.
+[CHAPTER]
+TIMEBASE=1/1000
+START=68386
+END=74930
+title=Verifying the functionalities of todo list, Remove a todo item.
+[CHAPTER]
+TIMEBASE=1/1000
+START=78636
+END=81483
+title=Verifying the functionalities of todo list, Include a logout button with the text `Sign Out`
+[CHAPTER]
+TIMEBASE=1/1000
+START=77850
+END=84336
+title=Verifying the functionalities of todo list, Should be able to logout
+[CHAPTER]
+TIMEBASE=1/1000
+START=90654
+END=90827
+title=Ensure that a user's todos are not accessible to other users. Login as a different user and verify that their todos are not visible to other users.

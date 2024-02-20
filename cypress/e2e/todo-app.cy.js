@@ -91,22 +91,22 @@ describe("Starting the tests for todo app", () => {
   });
 
   it("Navigate to the signup page and initiate the account creation process.", () => {
-    // cy.visit(studentSubmissionUrl + "/signup");
-    // cy.get('input[name="firstName"]').should("exist");
-    // cy.get('input[name="email"]').should("exist");
-    // cy.get('input[name="password"]').should("exist");
-    // cy.get('input[name="firstName"]').type(firstName);
-    // cy.get('input[name="email"]').type(email);
-    // cy.get('input[name="password"]').type(password);
+    cy.visit(studentSubmissionUrl + "/signup");
+    cy.get('input[name="firstName"]').should("exist");
+    cy.get('input[name="email"]').should("exist");
+    cy.get('input[name="password"]').should("exist");
+    cy.get('input[name="firstName"]').type(firstName);
+    cy.get('input[name="email"]').type(email);
+    cy.get('input[name="password"]').type(password);
 
-    // if (cy.get('input[name="lastName"]')) {
-    //   cy.get('input[name="lastName"]').type(lastName);
-    // }
-    // cy.get('button[type="submit"]').click();
-    // cy.wait(500);
-    // cy.location().should((loc) => {
-    //   expect(loc.pathname).to.eq("/todos");
-    // });
+    if (cy.get('input[name="lastName"]')) {
+      cy.get('input[name="lastName"]').type(lastName);
+    }
+    cy.get('button[type="submit"]').click();
+    cy.wait(500);
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq("/todos");
+    });
     cy.wait(4500);
   });
   it("should not login with incorrect credentials", () => {
@@ -237,10 +237,10 @@ describe("Verifying the functionalities of todo list,", () => {
     cy.wait(4000);
   });
 
-  // it("Include a logout button with the text `Sign Out`", () => {
-  //   clearFields(cy);
-  //   cy.contains("signout", { matchCase: false });
-  // });
+  it("Include a logout button with the text `Sign Out`", () => {
+    clearFields(cy);
+    cy.contains("signout", { matchCase: false });
+  });
 
   it("Should be able to logout", () => {
     // clearFields(cy);
