@@ -243,11 +243,11 @@ describe("Verifying the functionalities of todo list,", () => {
   });
 
   it("Should be able to logout", () => {
-    // clearFields(cy);
-    // cy.contains("signout", { matchCase: false }).click({ force: true });
-    // cy.location().should((loc) => {
-    //   expect(loc.pathname).to.eq("/");
-    // });
+    clearFields(cy);
+    cy.contains("signout", { matchCase: false }).click({ force: true });
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.eq("/");
+    });
     cy.wait(4000);
   });
 
