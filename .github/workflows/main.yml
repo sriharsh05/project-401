@@ -21,6 +21,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
           POSTGRES_DB: wd-todo-test
+          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -56,17 +57,10 @@ jobs:
           npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
 
       - name: Report Status
-        if: always()
-        uses: ravsamhq/notify-slack-action@v1
-        with:
-          status: ${{ job.status }} # required
-          notify_when: 'failure'
-          notification_title: '{workflow} has {status_message}'
-          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
-          footer: 'Linked to Repo <{repo_url}|{repo}>'
-          mention_users: 'U0160UUNH8S,U0080UUAA9N'
-          mention_users_when: 'failure,warnings'
-          mention_groups: 'SAZ94GDB8'
-          mention_groups_when: 'failure,warnings'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}    
+        uses: act10ns/slack@v1
+        with : 
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel : '#wd401'
+        if: always()  
+              
