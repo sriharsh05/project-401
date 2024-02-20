@@ -61,6 +61,6 @@ jobs:
         with : 
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
-          channel : '#wd401'
+          channel : '#todo-testing'
         if: always()  
               
