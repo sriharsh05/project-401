@@ -21,7 +21,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
           POSTGRES_DB: wd-todo-test
-          SLACK_WEBHOOK_URL: ${{ secrets.ACTION_MONITORING_SLACK }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
