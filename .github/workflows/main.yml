@@ -1,28 +1,28 @@
-name: Auto test todo app solution
+name: CI/CD
+
 on: push
+
 env:
-  PG_DATABASE: wd-todo-test
-  PG_USER: postgres
-  PG_PASSWORD: admin
+  PG_DATABASE: "${{ secrets.POSTGRES_DATABASE }}"
+  PG_USER: "${{ secrets.POSTGRES_USER }}"
+  PG_PASSWORD: "${{ secrets.POSTGRES_PASSWORD }}"
+
+# Jobs
 jobs:
   
   run-tests:
-    # Containers must run in Linux based operating systems
+    # Runs on Ubuntu latest version
+
     runs-on: ubuntu-latest
 
-    # Service containers to run with `container-job`
+    # Define a PostgreSQL service for running tests
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres:11.7
-        # Provide the password for postgres
         env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: admin
-          POSTGRES_DB: wd-todo-test
-          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
-        # Set health checks to wait until postgres has started
+          POSTGRES_USER: "postgres"
+          POSTGRES_PASSWORD: "admin"
+          POSTGRES_DB: "wd-todo-test"
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -31,36 +31,62 @@ jobs:
         ports:
           - 5432:5432
 
+    # Steps to execute within the job
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
+      # Check out repository code
       - name: Check out repository code
         uses: actions/checkout@v3
 
+        # Install dependencies
       - name: Install dependencies
-        run:  npm ci
-
+        run: npm ci
+      # Run unit tests
       - name: Run unit tests
         run: npm test
+      # Run the app
       - name: Run the app
         id: run-app
         run: |
-          npm install
           npx sequelize-cli db:drop
           npx sequelize-cli db:create
           npx sequelize-cli db:migrate
           PORT=3000 npm start &
           sleep 5
-
+      # Run integration tests
       - name: Run integration tests
         run: |
           npm install cypress cypress-json-results
-          npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
+          npx cypress run
 
-      - name: Report Status
-        uses: act10ns/slack@v1
-        with : 
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel : '#todo-testing'
-        if: always()  
-              
+  # Job to send Slack notifications
+  notify:
+    # Define the job dependencies
+    needs: [run-tests]
+    runs-on: ubuntu-latest
+
+    if: ${{ always() }}
+    steps:
+      - name: Send Slack notification on success
+
+        # Send a Slack notification if the tests and deployment are successful
+        if: ${{ needs.run-tests.result == 'success' && needs.deploy.result == 'success' }}
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "CI/CD process succeeded!" 
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Send Slack notification on failure
+        if: ${{ needs.run-tests.result != 'success' || needs.deploy.result != 'success' }}
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "*${{ github.workflow }}* failed. Access the details https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}."
+               
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
