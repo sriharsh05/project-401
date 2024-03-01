@@ -73,3 +73,41 @@ ConnectionRefusedError [SequelizeConnectionRefusedError]: connect ECONNREFUSED 1
     port: 5432
   }
 }
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Executing (default): SELECT "id", "firstName", "lastName", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."email" = 'sriharsh.harsha5@gmail.com';
+Executing (default): INSERT INTO "Users" ("id","firstName","lastName","email","password","createdAt","updatedAt") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6) RETURNING "id","firstName","lastName","email","password","createdAt","updatedAt";
+Executing (default): SELECT "id", "firstName", "lastName", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."id" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" < '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" = '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" > '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."completed" = true AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "firstName", "lastName", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."id" = 82;
+Executing (default): INSERT INTO "Todos" ("id","title","dueDate","completed","createdAt","updatedAt","userId") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6) RETURNING "id","title","dueDate","completed","createdAt","updatedAt","userId";
+Executing (default): SELECT "id", "firstName", "lastName", "email", "password", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."id" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" < '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" = '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" > '2024-02-29' AND "Todo"."completed" = false AND "Todo"."userId" = 82;
+Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."completed" = true AND "Todo"."userId" = 82;
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000
+Started express server at port 4000

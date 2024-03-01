@@ -1,18 +1,19 @@
-module.exports = {
-    apps: [
-      {
-        name: "Todo-401",
-        script: "index.js",
-        instances: "max",
-        exec_mode: "cluster",
-        err_file: "logs/error.log",
-        out_file: "logs/output.log",
-        log_file: "logs/merge.log",
-        merge_logs: true,
-        env_production: {
-            NODE_ENV: "production",
-            PORT: process.env.PORT || 4000,
-        },
-      },
-    ],
-  };
+module.exports = {  
+  apps: [  
+    {  
+      name: "Todo-401",  
+      script: "index.js",  
+      instances: "8",  
+      exec_mode: "cluster",  
+      watch: true,  
+      max_memory_restart: "14",  
+      log_date_format: "YYYY-MM-DD HH:mm Z",  
+      env: {  
+        NODE_ENV: "development",  
+      },  
+      env_production: {  
+        NODE_ENV: "production",  
+      },  
+    },  
+  ],  
+};

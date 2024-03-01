@@ -35,6 +35,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
+    "pm2": "^5.3.1",
     "sequelize": "^6.23.0",
     "tiny-csrf": "^1.1.3"
   },
