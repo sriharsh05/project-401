@@ -92,7 +92,7 @@ passport.deserializeUser((id, done) => {
 const OpenAI = require("openai");
 
 openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || secrets.OPENAI_API_KEY,
 })
 
 const systemPrompt = 
