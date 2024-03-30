@@ -6,6 +6,7 @@ env:
   PG_DATABASE: "${{ secrets.POSTGRES_DATABASE }}"
   PG_USER: "${{ secrets.POSTGRES_USER }}"
   PG_PASSWORD: "${{ secrets.POSTGRES_PASSWORD }}"
+  OPENAI_API_KEY: "${{ secrets.OPENAI_API_KEY }}"
 
 # Jobs
 jobs:
