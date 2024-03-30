@@ -11,10 +11,12 @@ const flash = require("connect-flash");
 
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
 
 const saltRounds = 10;
 
 app.use(bodyParser.json());
+dotenv.config();
 
 // Set EJS as view engine
 app.set("view engine", "ejs");
@@ -85,7 +87,90 @@ passport.deserializeUser((id, done) => {
     });
 });
 
+// Initialize openai api key
+
+const OpenAI = require("openai");
+
+openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+})
+
+const systemPrompt = 
+   "You are an assistant helping a user manage their to-do list. " +
+   "Given a message, you should extract the to-do item from it." +
+   "The uset may provide a due date along with to-do item. " +
+   "To compute relative dates, assume that the current timestamp is " +
+   new Date().toISOString() + 
+   ". When the input is ambiguous, ask for clarification." ; 
+
+async function askGPT(question) {
+  try{
+  const chatCompletion = await openai.chat.completions.create({
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: question }
+    ], 
+    model: "gpt-3.5-turbo",
+    tools: [
+      {
+        type: "function",
+        function:{
+           name: "createTodo",
+           description: "Create a todo item",
+           parameters: {
+            type: "object",
+            properties:{
+              text: {
+                type: "string",
+                description: "Text of the todo item"
+              },
+              dueAt: {
+                type: "string",
+                description: "The time the to-do item is due as ISO8601"
+              },  
+              }
+            }
+           }
+        }
+    ],
+    tool_choice: { type:"function", function: {name: "createTodo"}},
+  });  
+  console.log("Chat completion", chatCompletion.choices[0].message.tool_calls[0].function);
+  return chatCompletion.choices[0].message.tool_calls[0].function;
+} catch (error) {
+  console.error("Error making a query", error);
+  return null;
+ }
+}
+
 const { Todo, User } = require("./models");
+
+async function addTodoWithChatGPT(question){
+  const toolCall = await askGPT(question);
+  console.log("Tool call", toolCall);
+
+  switch(toolCall.name){
+    case "createTodo":
+     const arguments = JSON.parse(toolCall.arguments);
+
+      try {
+        connectEnsureLogin.ensureLoggedIn();
+        await Todo.addTodo({
+          title: arguments.text,
+          dueDate: arguments.dueAt,
+          userId: request.user.id,
+        });
+        redirect("/")
+        console.log("Adding todo", arguments.text, arguments.dueAt);
+      }catch (error){
+        console.log(error.message);
+      }
+     break;
+    default:
+      console.log("Unknown tool call", toolCall.name);
+  }
+}
+
 
 app.get(
   "/",
@@ -248,5 +333,14 @@ app.delete(
     }
   }
 );
+
+app.post(
+  "/add-natural",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (request, response) => {
+    await addTodoWithChatGPT(request.body.naturalText);
+    response.redirect("/");
+  }
+)
 
 module.exports = app;
