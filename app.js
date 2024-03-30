@@ -151,17 +151,17 @@ async function addTodoWithChatGPT(question){
 
   switch(toolCall.name){
     case "createTodo":
-     const arguments = JSON.parse(toolCall.arguments);
+     const args = JSON.parse(toolCall.args);
 
       try {
         connectEnsureLogin.ensureLoggedIn();
         await Todo.addTodo({
-          title: arguments.text,
-          dueDate: arguments.dueAt,
+          title: args.text,
+          dueDate: args.dueAt,
           userId: request.user.id,
         });
         redirect("/")
-        console.log("Adding todo", arguments.text, arguments.dueAt);
+        console.log("Adding todo", args.text, args.dueAt);
       }catch (error){
         console.log(error.message);
       }
