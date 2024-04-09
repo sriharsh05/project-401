@@ -250,4 +250,6 @@ app.delete(
   }
 );
 
+console.log("HEllo");
+
 module.exports = app;
