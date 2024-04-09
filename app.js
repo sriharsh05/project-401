@@ -236,6 +236,8 @@ app.put(
   }
 );
 
+console.log("This is a change);
+
 // eslint-disable-next-line no-unused-vars
 app.delete(
   "/todos/:id",
