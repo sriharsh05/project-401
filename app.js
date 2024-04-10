@@ -236,7 +236,6 @@ app.put(
   }
 );
 
-// this is a commet
 
 // eslint-disable-next-line no-unused-vars
 app.delete(
