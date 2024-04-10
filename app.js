@@ -130,6 +130,8 @@ app.get(
   }
 );
 
+// This is a comment
+
 app.get("/signup", (request, response) => {
   response.render("signup", {
     title: "Signup",
